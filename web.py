@@ -31,15 +31,28 @@ def do_GET(self):
 
 
     self.send_response(200)
+if  self.path == "/":
+
+        with open("home.html", "r") as file:
+            content = file.read()
+
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html")
+        self.end_headers()
+        self.wfile.write(content.encode("utf-8"))
+else:
+        self.send_response(404)
+        self.send_header("Content-Type", "text/html")
+        self.end_headers()
+        self.wfile.write("<h1>ERROR 404:Not Found</h1>".encode("utf-8"))
+
+        self.send_header("Content-Type", "text/html")
+        self.send_header("Server", "CustomPythonServer")
+        self.send_header("Date", self.date_time_string())
+        self.end_headers()
 
 
-    self.send_header("Content-Type", "text/html")
-    self.send_header("Server", "CustomPythonServer")
-    self.send_header("Date", self.date_time_string())
-    self.end_headers()
-
-
-    self.wfile.write(self.get_response(host, user_agent).encode("utf-8"))
+        self.wfile.write(self.get_response(host, user_agent).encode("utf-8"))
 
 def get_response(self, host, user_agent):
 
