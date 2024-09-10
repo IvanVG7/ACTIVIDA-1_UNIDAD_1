@@ -34,8 +34,14 @@ def do_GET(self):
 if  self.path == "/":
 
         with open("home.html", "r") as file:
-            content = file.read()
-
+            content = file.read()  
+            contenido = {
+    '/': """<html><h1>Inicio del Sitio Web</h1></html>""",
+    '/proyecto/1': """<html><h1>Aplicación para la Gestión de Tareas Diarias</h1></html>""",
+    '/proyecto/2': """<html><h1>Portafolio de Proyectos Creativos</h1></html>""",
+    '/proyecto/3': """<html><h1>Blog de Viajes y Experiencias</h1></html>"""
+}
+if self.path in contenido:
         self.send_response(200)
         self.send_header("Content-Type", "text/html")
         self.end_headers()
